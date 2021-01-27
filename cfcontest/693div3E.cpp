@@ -79,57 +79,45 @@ int main() {
        freopen ("OUTPUT.txt", "w" , stdout);
     #endif
 
-	//Never let somebody tell you - you are weak! You are as strong as anyone be,
+    //Never let somebody tell you - you are weak! You are as strong as anyone be,
        // u just need consistency and will power to change!
 
-
-       int t;
+       int t = 1;
        cin>>t;
 
        while(t--)
        {
-            int n , k ;
-            cin>>>n>>k;
-
-            ll arr[n+1];
-            map<ll,ll> mp;
-            for(int i = 1; i <= n; i++){
-                cin>>arr[i];
-                mp[arr[i]]++;
-            }
-
-            sort(arr+1,arr+n+1);
-
-            if(n == k)
+            ll n;
+            cin>>n;
+            bool b = false;
+            for(ll i = 0; i * 2020 <= n; i++)
             {
-                cout<<1<<'\n';
-                continue;
+                ll f = 2020*i;
+                ll k = n - f;
+                if(k % 2021 == 0)
+                {
+                    cout<<"YES\n";
+                    b = true;
+                    break;
+                }
             }
-
-            //---------------less than k
-
-            if(arr[n-k] ! = arr[n-k+1])
+            
+            if(b == false)
+            for(ll i = 0; i * 2021 <= n; i++)
             {
-                cout<<1<<'\n';
-                continue;
+                ll f = 2021*i;
+                ll k = n - f;
+                if(k % 2020 == 0)
+                {
+                    cout<<"YES\n";
+                    b = true;
+                    break;
+                }
             }
-            else
-            {
-                ll count = 0;
-                for(int j = n - k + 1; j <= n; j++)
-                    if(arr[j] == arr[n-k+1])
-                        count++;
-                    else
-                        break;
-
-                ll tot = mp[arr[n-k+1]];
-
-                //find totCcount;
-
-                
-            }
-
+            if(b == false)
+                cout<<"NO\n";
        }
+
           
 
 
