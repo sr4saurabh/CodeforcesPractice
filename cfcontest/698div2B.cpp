@@ -83,7 +83,14 @@ int main() {
        // u just need consistency and will power to change!
 
 
-            
+            int main() {
+    ios::sync_with_stdio(false);
+     cin.tie(0);
+     cout.tie(0);
+    #ifndef ONLINE_JUDGE
+       freopen ("INPUT.txt" , "r" , stdin);
+       freopen ("OUTPUT.txt", "w" , stdout);
+    #endif
 
           
 
