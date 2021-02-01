@@ -84,7 +84,17 @@ int main() {
 
 
        
-
+       int t = 1;
+       cin>>t;
+       while(t--)
+       {
+            ll a,b;
+            cin>>a>>b;
+            if((a^b) == (a + b))
+                cout<<"NO\n";
+            else
+                cout<<"YES\n";
+       }
           
 
 

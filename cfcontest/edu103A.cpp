@@ -87,30 +87,34 @@ int main() {
 
        while(t--)
        {
-            ll n,k;
-            cin>>n>>k;
-
-            if(n > k)
+            int n;
+            cin>>n;
+            ll s;
+            cin>>s;
+            ll arr[n];
+            for(int i = 0; i < n; i++)
+                cin>>arr[i];
+            vii v;
+            int ans= 0;
+            for(int i = 0; i < n; i++)
             {
-                if(n % k == 0)
-                    cout<<n/k;
+                if(arr[i] >= s)
+                    ans++;
                 else
-                    cout<<n/k + 1;
-                cout<<'\n';
+                    v.pb(arr[i]);
             }
-            else
-            {
-                if(n == k) cout<<1<<'\n';
-                else
-                {
-                    if(k %n == 0)
-                        cout<<k/n;
-                    else
-                        cout<<k/n + 1;
-                    cout<<'\n';
-                }
 
+            sort(v.begin(),v.end());
+
+            for(int i = 0 , j = v.size() - 1; i < j ;)
+            {
+                if(v[i] + v[j] >= s)
+                    i++,j--,ans++;
+                else
+                i++;
             }
+
+            cout<<ans<<'\n';
        }
        
 

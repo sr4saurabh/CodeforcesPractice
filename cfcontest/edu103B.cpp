@@ -64,7 +64,57 @@ const ll N=10000000+6;
 
 
 //--------------------------------------------
+void solve()
+{
+    int n;
+    cin>>n;
 
+    char arr[n+1];
+    string st;
+    cin>>st;
+    for(int i = 0;i < n; i++)
+        arr[i+1] = st[i];
+    //--------------------
+    //--------------------
+
+    ll dp[n+1][10];
+    for(int i = 0; i <= n; i++)
+        for(int j = 0; j <= 9; j++)
+            dp[i][j] = 0;
+        
+        if(arr[1] == '-')
+        for(int i = 1; i <= 9; i++)
+            dp[1][i] = 1;
+        else
+            dp[1][arr[1]-'0'] = 1;
+
+
+    for(int i = 2; i <= n; i++)
+    {
+        if(arr[i] == '-')
+        {
+            for(int j = 1; j <= 9; j++){
+
+                
+                    dp[i][j] = (dp[i][j-1] + dp[i-1][j])%mod;
+            
+            }
+        }
+        else
+        {
+            int val = arr[i] - '0';
+            for(int j = 1; j <= val; j++)
+            dp[i][val] = (dp[i][val] + dp[i-1][j])%mod; 
+        }
+    }
+    
+    ll ans = 0;
+    for(int i = 1; i <= 9; i++)
+        ans = (ans + dp[n][i]) % mod;
+
+    cout<<ans<<'\n';
+
+}
 
 
 
@@ -82,7 +132,10 @@ int main() {
 	//Never let somebody tell you - you are weak! You are as strong as anyone be,
        // u just need consistency and will power to change!
 
-
+       int t = 1;
+       cin>>t;
+       while(t--)
+        solve();
        
 
           
