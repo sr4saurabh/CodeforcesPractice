@@ -82,63 +82,55 @@ int main() {
 	//Never let somebody tell you - you are weak! You are as strong as anyone be,
        // u just need consistency and will power to change!
 
-
-       
        int t = 1;
        cin>>t;
+
        while(t--)
        {
-            int n;
-            cin>>n;
-            ll k;
-            cin>>k;
+            int px , py;
+            cin>>px>>py;
 
-            ll arr[n];
-            for(int i = 0; i < n; i++)
-                cin>>arr[i];
+            string st;
+            cin>>st;
 
-            ll ans = 0;
-            ll currsum = 0 , curr = 0;
-            multiset<int> s;
-            for(int i = 0,j = 0;j < n && i < n;)
-            {  
-                if(s.find(arr[j]) == s.end())
-                {   
-                    if(arr[j] + currsum <= k)
-                    {
-                        currsum = currsum + arr[j];
-                        s.insert(arr[j]);
-                        curr++;
-                        j++;
-
-                    }
-                    else
-                    {
-                        if(i == j)
-                            i++,j++;
-                        else
-                        {
-                          if(s.count(arr[i]) == 1)
-                            currsum -= arr[i];
-                            
-                           s.erase(s.find(arr[i]));
-                           curr--;
-                           i++;
-                        }
-                    }
-                }
+            int u = 0 , d = 0, l = 0 ,r = 0;
+            int cx = 0 , cy = 0;
+            for(char k : st){
+                if(k == 'L')
+                    l++ , cx--;
+                else if(k == 'R')
+                    r++,cx++;
                 else
-                {
-                    curr++;
-                    s.insert(arr[j]);
-                    j++;
-                }
-
-                ans = max(ans,curr);
-                // cout<<i<<' '<<j<<' '<<currsum<<'\n';
+                    if(k == 'D')
+                    d++,cy--;
+                else
+                    u++,cy++;
             }
-            cout<<ans<<'\n';
+
+            if(cx == px && cy == py)
+            {
+                cout<<"YES\n";
+                continue;
+            }
+            int b = 0;
+            if(cx >= px && r >= cx - px && cy >= py && u >= cy - py)
+                b = 1;
+            if(cx <= px && l >= px - cx && cy >= py && u >= cy - py)
+                b = 1;
+            if(cx >= px && r >= cx - px && cy <= py && d >= py - cy)
+                b = 1;
+            if(cx <= px && l >= px - cx && cy <= py && d >= py - cy)
+                b = 1;
+          
+
+            if(b == 1)
+                cout<<"YES\n";
+            else
+                cout<<"NO\n";
        }
+
+       
+
           
 
 

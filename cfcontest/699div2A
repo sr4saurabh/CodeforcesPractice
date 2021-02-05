@@ -84,61 +84,7 @@ int main() {
 
 
        
-       int t = 1;
-       cin>>t;
-       while(t--)
-       {
-            int n;
-            cin>>n;
-            ll k;
-            cin>>k;
 
-            ll arr[n];
-            for(int i = 0; i < n; i++)
-                cin>>arr[i];
-
-            ll ans = 0;
-            ll currsum = 0 , curr = 0;
-            multiset<int> s;
-            for(int i = 0,j = 0;j < n && i < n;)
-            {  
-                if(s.find(arr[j]) == s.end())
-                {   
-                    if(arr[j] + currsum <= k)
-                    {
-                        currsum = currsum + arr[j];
-                        s.insert(arr[j]);
-                        curr++;
-                        j++;
-
-                    }
-                    else
-                    {
-                        if(i == j)
-                            i++,j++;
-                        else
-                        {
-                          if(s.count(arr[i]) == 1)
-                            currsum -= arr[i];
-                            
-                           s.erase(s.find(arr[i]));
-                           curr--;
-                           i++;
-                        }
-                    }
-                }
-                else
-                {
-                    curr++;
-                    s.insert(arr[j]);
-                    j++;
-                }
-
-                ans = max(ans,curr);
-                // cout<<i<<' '<<j<<' '<<currsum<<'\n';
-            }
-            cout<<ans<<'\n';
-       }
           
 
 

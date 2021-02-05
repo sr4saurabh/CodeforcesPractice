@@ -83,62 +83,92 @@ int main() {
        // u just need consistency and will power to change!
 
 
-       
        int t = 1;
        cin>>t;
+
        while(t--)
        {
-            int n;
-            cin>>n;
-            ll k;
-            cin>>k;
+            int n,m;
+            cin>>n>>m;
 
-            ll arr[n];
-            for(int i = 0; i < n; i++)
-                cin>>arr[i];
+            int old[n+1], curr[n+1];
+            map<int,vii> tobe;
+            map<int,vii> done;
+            for(int i = 1; i <= n; i++)
+                cin>>old[i];
+            for(int i = 1; i <= n; i++)
+                cin>>curr[i];
 
-            ll ans = 0;
-            ll currsum = 0 , curr = 0;
-            multiset<int> s;
-            for(int i = 0,j = 0;j < n && i < n;)
-            {  
-                if(s.find(arr[j]) == s.end())
-                {   
-                    if(arr[j] + currsum <= k)
-                    {
-                        currsum = currsum + arr[j];
-                        s.insert(arr[j]);
-                        curr++;
-                        j++;
+            
+            
+            for(int i = 1; i <= n; i++)
+            {
+                int v = curr[i];
+                if(curr[i] != old[i])
+                tobe[v].pb(i);
+                else
+                done[v].pb(i);
+            } 
 
+                
+
+            //------------------------------
+            int sigma = 0;
+            vii ans(m+1,0);
+            int last = 0;
+            vii in;
+            vii val;
+            for(int i = 1; i <= m ; i++)
+            {
+                int col; cin>>col;
+                if(tobe.count(col) > 0 && tobe[col].size() > 0)
+                {
+                    ans[i] = tobe[col].back();
+                    tobe[col].pop_back();
+                    done[col].push_back(ans[i]);
+                    if(sigma){
+                        sigma--;
+                        val.pb(ans[i]);
                     }
-                    else
+
+                    
+                }
+                else
+                if(done.count(col) > 0 && done[col].size() > 0)
+                {
+                    ans[i] = done[col].back();
+                    if(sigma)
                     {
-                        if(i == j)
-                            i++,j++;
-                        else
-                        {
-                          if(s.count(arr[i]) == 1)
-                            currsum -= arr[i];
-                            
-                           s.erase(s.find(arr[i]));
-                           curr--;
-                           i++;
-                        }
+                        sigma--;
+                        val.pb(ans[i]);
                     }
+                    
+                    
                 }
                 else
                 {
-                    curr++;
-                    s.insert(arr[j]);
-                    j++;
-                }
+                     sigma++;
+                     in.pb(i);
 
-                ans = max(ans,curr);
-                // cout<<i<<' '<<j<<' '<<currsum<<'\n';
+                }
+               
             }
-            cout<<ans<<'\n';
+
+            if(sigma > 0)
+                cout<<"NO\n";
+            else
+            {
+                cout<<"YES\n";
+                int j = 0;
+                for(int i = 1; i <= m; i++)
+                    if(ans[i] == 0)
+                        cout<<val[j++]<<' ';
+                    else
+                        cout<<ans[i]<<' ';
+                cout<<'\n';
+            }
        }
+
           
 
 

@@ -82,63 +82,39 @@ int main() {
 	//Never let somebody tell you - you are weak! You are as strong as anyone be,
        // u just need consistency and will power to change!
 
-
-       
        int t = 1;
        cin>>t;
+
        while(t--)
        {
-            int n;
-            cin>>n;
-            ll k;
-            cin>>k;
+            int n,k;
+            cin>>n>>k;
 
-            ll arr[n];
-            for(int i = 0; i < n; i++)
+            int arr[n];
+            for(int i = 0;i < n; i++)
                 cin>>arr[i];
 
-            ll ans = 0;
-            ll currsum = 0 , curr = 0;
-            multiset<int> s;
-            for(int i = 0,j = 0;j < n && i < n;)
-            {  
-                if(s.find(arr[j]) == s.end())
-                {   
-                    if(arr[j] + currsum <= k)
-                    {
-                        currsum = currsum + arr[j];
-                        s.insert(arr[j]);
-                        curr++;
-                        j++;
+            int ans[10005] ;
+            for(int i = 0;i < 10005; i++)
+                ans[i] = -1;
 
-                    }
-                    else
-                    {
-                        if(i == j)
-                            i++,j++;
-                        else
-                        {
-                          if(s.count(arr[i]) == 1)
-                            currsum -= arr[i];
-                            
-                           s.erase(s.find(arr[i]));
-                           curr--;
-                           i++;
-                        }
-                    }
-                }
-                else
+            for(int i = 1; i <= 10002; i++)
+            {
+                for(int j = 0; j < n-1; j++)
                 {
-                    curr++;
-                    s.insert(arr[j]);
-                    j++;
+                    if(arr[j] < arr[j+1]){
+                        arr[j]++ , ans[i] = j + 1;
+                        break;} 
                 }
-
-                ans = max(ans,curr);
-                // cout<<i<<' '<<j<<' '<<currsum<<'\n';
             }
-            cout<<ans<<'\n';
+
+            if(k >= 10004)
+                cout<<-1<<'\n';
+            else
+                cout<<ans[k]<<'\n';
        }
+       
+
           
 
 
