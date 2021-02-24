@@ -79,18 +79,53 @@ int main() {
        freopen ("OUTPUT.txt", "w" , stdout);
     #endif
 
-	//Never let somebody tell you - you are weak! You are as strong as anyone be,
+    //Never let somebody tell you - you are weak! You are as strong as anyone be,
        // u just need consistency and will power to change!
 
+       int n;
+       cin>>n;
+       string arr[n];
 
-       
-       int t = 1;
-       cin>>t;
+       for(int i = 0; i < n; i++)
+        getline(cin,arr[i]);
 
-       while(t--)
+        std::vector<string> v;
+
+       for(int i = 0; i < n; i++)
        {
-            
+            int g = 0; bool b = true;
+            for(int j = 1; j < arr[i].size(); j++)
+            {
+                if(arr[i][j]=='s' && arr[i][j-1]=='m')
+                    g++;
+                if(arr[i][j] == '*' || arr[i][j-1] == '*')
+                    b = false;
+            }
+
+            if(b && g == 3)
+            {
+                string curr=""; int f = 0;
+                for(int k = 0; k < arr[i].size(); k++)
+                {
+                    if(f == 3 && arr[i][k] == ' ')
+                    {
+                        v.push_back(curr);
+                        break;
+                    }
+                    else
+                    {
+                        curr = curr + arr[i][k];
+                        if(arr[i][k] == '.')
+                            f++;
+                    }
+                }
+            }
        }
+
+       for(string st : v)
+        cout<<st<<'\n';
+       
+
           
 
 

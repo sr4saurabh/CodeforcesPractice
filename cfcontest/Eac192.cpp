@@ -60,11 +60,54 @@ const ll mod = 1000000000+7;
 const ll N=10000000+6;
 #define M_PI           3.14159265358979323846
 //--------------------------------------------
-
-
-
+int n,m,s,d;
+vector<pair<ll,pll>> adj[100004];
+ll dist[100010];
 //--------------------------------------------
+void dijkstra()
+{
+  ll source = s;
+  int visd[100040]={0};
+  multiset<pll> s;
+  s.insert({0ll,source});
+  for(int i = 1; i <= n ;i++)
+  {
+    if(i==source)
+      dist[source] = 0;
+    else
+      dist[i] = 1e18;
+  }
+  while(!s.empty())
+  {
+    pll p = *s.begin();
+    s.erase(s.begin());
 
+    ll x = p.se; ll w = p.fi;
+    if(visd[x])
+      continue;
+    visd[x] = true;
+
+    for(pair<ll,pll> u : adj[x])
+    {
+      ll edge = u.fi;
+      ll weight = u.se.fi;
+      ll ti = u.se.se;
+      ll temp_dist;
+      if(dist[x] % ti == 0)
+        temp_dist = dist[x];
+    else
+        temp_dist = (dist[x]/ti + 1)*ti;
+
+      if(temp_dist+weight < dist[edge])
+      {
+        dist[edge] = temp_dist+weight;
+        s.insert(mp(dist[edge],edge));
+      }
+
+    }
+  } //returns dist[] array with distance of vertex from source if reachable.
+
+}
 
 
 
@@ -79,38 +122,26 @@ int main() {
        freopen ("OUTPUT.txt", "w" , stdout);
     #endif
 
-    //Never let somebody tell you - you are weak! You are as strong as anyone be,
+	//Never let somebody tell you - you are weak! You are as strong as anyone be,
        // u just need consistency and will power to change!
 
-       int t = 1;
-       cin>>t;
-       while(t--)
-       {
-            string st;
-            cin>>st;
-
-            for(int i = 0; i < st.size(); i++)
-            {
-                if(i&1)
-                {
-                    if(st[i] == 'z')
-                        st[i] = 'y';
-                    else
-                        st[i] = 'z';
-                }
-                else
-                {
-                    if(st[i] == 'a')
-                        st[i] = 'b';
-                    else
-                        st[i] = 'a';
-                }
-            }
-
-            cout<<st<<'\n';
-       }
+      
+       cin>>n>>m>>s>>d;
        
+       for(int i = 0; i < m; i++)
+       {
+            ll a , b, c , d;
+            cin>>a>>b>>c>>d;
+            adj[a].pb({b,{c,d}});
+            adj[b].pb({a,{c,d}});
+       }
 
+       dijkstra();
+
+       if(dist[d] == 1e18)
+        cout<<-1<<'\n';
+    else
+        cout<<dist[d];
           
 
 

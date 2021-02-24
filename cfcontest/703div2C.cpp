@@ -64,7 +64,47 @@ const ll N=10000000+6;
 
 
 //--------------------------------------------
+ll descending(ll k)
+{
+    ll n = 0;
+    vll v;
+    while(k > 0)
+    {
+        int r = k % 10;
+        v.push_back(r);
+        k /=10;
+    }
+    sort(v.begin(),v.end());
+    ll vv = 1;
+    for(ll i = 0; i < v.size(); i++)
+    {
+        n = vv*v[i] + n;
+        vv *= 10;
+    }
 
+    return n;
+}
+
+ll ascending(ll k)
+{
+    ll n = 0;
+    vll v;
+    while(k > 0)
+    {
+        int r = k % 10;
+        v.push_back(r);
+        k /=10;
+    }
+    sort(v.begin(),v.end(),greater<ll>());
+    ll vv = 1;
+    for(ll i = 0; i < v.size(); i++)
+    {
+        n = vv*v[i] + n;
+        vv *= 10;
+    }
+   
+    return n;
+}
 
 
 
@@ -82,36 +122,16 @@ int main() {
     //Never let somebody tell you - you are weak! You are as strong as anyone be,
        // u just need consistency and will power to change!
 
-       int t = 1;
-       cin>>t;
-       while(t--)
+       ll n,k;
+       cin>>n>>k;
+       ll ans = n;
+       for(int i = 0;i  < k; i++)
        {
-            string st;
-            cin>>st;
-
-            for(int i = 0; i < st.size(); i++)
-            {
-                if(i&1)
-                {
-                    if(st[i] == 'z')
-                        st[i] = 'y';
-                    else
-                        st[i] = 'z';
-                }
-                else
-                {
-                    if(st[i] == 'a')
-                        st[i] = 'b';
-                    else
-                        st[i] = 'a';
-                }
-            }
-
-            cout<<st<<'\n';
+            ll an = ans;
+            ans = descending(an) - ascending(an);
        }
-       
-
-          
+        
+        cout<<ans;
 
 
 

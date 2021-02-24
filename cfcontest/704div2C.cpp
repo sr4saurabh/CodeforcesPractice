@@ -64,7 +64,25 @@ const ll N=10000000+6;
 
 
 //--------------------------------------------
+int ls(int key , vii &pref)
+{
+    int r = pref.size();
+    int l = 1;
 
+    while(l < r)
+    {
+        int m = l + (r - l)/2;
+        if(key >= pref[m])
+            l = m + 1;
+        else
+            r = m;
+        
+    }
+
+    return l;
+
+
+}
 
 
 
@@ -79,36 +97,50 @@ int main() {
        freopen ("OUTPUT.txt", "w" , stdout);
     #endif
 
-    //Never let somebody tell you - you are weak! You are as strong as anyone be,
+	//Never let somebody tell you - you are weak! You are as strong as anyone be,
        // u just need consistency and will power to change!
 
-       int t = 1;
-       cin>>t;
-       while(t--)
-       {
-            string st;
-            cin>>st;
+        int t = 1;
+       // cin >> t;
+        while(t--)
+        {
+            int n,k;
+            cin>>n>>k;
 
-            for(int i = 0; i < st.size(); i++)
+            int arr[n+1];
+            arr[0] = 0;
+            for(int i = 1; i <= n; i++)
+                cin>>arr[i];
+
+            vii pref(n+1);
+            pref[0] = 0;
+            for(int i = 1; i <= n; i++)
+                pref[i] = pref[i-1] + (arr[i] == 0);
+
+            int ans = -1;
+            int l = -1 , r = -1;
+            for(int i = 1;i <= n; i++)
             {
-                if(i&1)
-                {
-                    if(st[i] == 'z')
-                        st[i] = 'y';
-                    else
-                        st[i] = 'z';
+                int v = pref[i-1] + k;
+                int in = ls(v,pref);
+                if(in - i  >  ans){
+                    l = i;
+                    r = in;
+                    ans = in - i;
                 }
-                else
-                {
-                    if(st[i] == 'a')
-                        st[i] = 'b';
-                    else
-                        st[i] = 'a';
-                }
+                
+                //cout<<in-1<<' ';
             }
 
-            cout<<st<<'\n';
-       }
+            cout<<ans<<'\n';
+            for(int i = 1 ; i <= n; i++)
+            {
+                if(i >= l && i < r)
+                    cout<<1<<' ';
+                else
+                    cout<<arr[i]<<" ";
+            }
+        }
        
 
           

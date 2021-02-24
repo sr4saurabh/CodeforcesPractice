@@ -79,39 +79,78 @@ int main() {
        freopen ("OUTPUT.txt", "w" , stdout);
     #endif
 
-	//Never let somebody tell you - you are weak! You are as strong as anyone be,
+    //Never let somebody tell you - you are weak! You are as strong as anyone be,
        // u just need consistency and will power to change!
 
-       int t = 1;
+       int t;
        cin>>t;
-
        while(t--)
        {
-            int n,k;
-            cin>>n>>k;
+            ll attack ,  h ,  n;
+            cin>>attack>>h>>n;
 
-            int arr[n];
-            for(int i = 0;i < n; i++)
+            ll arr[n];
+            ll brr[n];
+
+            for(int i = 0; i < n; i++)
                 cin>>arr[i];
+            for(int j = 0; j < n; j++)
+                cin>>brr[j];
 
-            int ans[10005] ;
-            for(int i = 0;i < 10005; i++)
-                ans[i] = -1;
+            multiset<pll> mz;
+            multiset<pll> mnz;
 
-            for(int i = 1; i <= 10002; i++)
+            for(int i = 0; i < n; i++)
             {
-                for(int j = 0; j < n-1; j++)
-                {
-                    if(arr[j] < arr[j+1]){
-                        arr[j]++ , ans[i] = j + 1;
-                        break;} 
-                }
+                if(brr[i] % attack == 0)
+                    mz.insert({arr[i],brr[i]});
+                else
+                    mnz.insert({arr[i],brr[i]});
             }
 
-            if(k >= 10004)
-                cout<<-1<<'\n';
+            ll ch = h;
+            //cout<<mnz.size()<<'\n';
+            while(ch > 0 && mz.size() > 0)
+            {
+
+                pll f = *mz.begin();
+                ll monp = f.first;
+                ll monh = f.second;
+                ll ttm = ch/monp;
+                if(ch % monp > 0)
+                    ttm++;
+                ll tth = monh/attack;
+                if(monh % attack > 0)
+                    tth++;
+                if(ttm < tth)
+                    break;
+                ch = ch - monp*(monh/attack);
+                
+                mz.erase(mz.begin());
+            }
+             while(ch > 0 && mnz.size() > 0)
+            {
+                pll f = *mnz.begin();
+                ll monp = f.first;
+                ll monh = f.second;
+                ll ttm = ch/monp;
+                if(ch % monp > 0)
+                    ttm++;
+                ll tth = monh/attack;
+                if(monh % attack > 0)
+                    tth++;
+                if(ttm < tth)
+                    break;
+                ch = ch - monp*((monh/attack) + 1);
+
+                mnz.erase(mnz.begin());
+
+            }
+
+            if(mz.size() == 0 && mnz.size() == 0)
+                cout<<"YES\n";
             else
-                cout<<ans[k]<<'\n';
+                cout<<"NO\n";
        }
        
 

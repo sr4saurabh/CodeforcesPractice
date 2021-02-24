@@ -79,37 +79,53 @@ int main() {
        freopen ("OUTPUT.txt", "w" , stdout);
     #endif
 
-    //Never let somebody tell you - you are weak! You are as strong as anyone be,
+	//Never let somebody tell you - you are weak! You are as strong as anyone be,
        // u just need consistency and will power to change!
 
-       int t = 1;
-       cin>>t;
-       while(t--)
-       {
-            string st;
-            cin>>st;
 
-            for(int i = 0; i < st.size(); i++)
+        int t = 1;
+        //cin >> t;
+        while(t--)
+        {
+            int n,m;
+            cin>>n>>m;
+
+            int arr[n][4];
+            for(int i = 0; i < n; i++)
+                for(int j = 0; j < 4; j++)
+                    arr[i][j] = 0;
+
+            for(int i = 1;i <= min(m,n*2); i++)
             {
                 if(i&1)
-                {
-                    if(st[i] == 'z')
-                        st[i] = 'y';
-                    else
-                        st[i] = 'z';
-                }
+                    arr[(i-1)/2][0] = i;
                 else
-                {
-                    if(st[i] == 'a')
-                        st[i] = 'b';
-                    else
-                        st[i] = 'a';
-                }
+                    arr[(i-1)/2][3] = i;
+
+            }
+            int j = 0;
+            for(int i = min(m,n*2)+1 ; i <= m; i++)
+            {
+                if(i&1)
+                    arr[(i-2*n-1)/2][1] = i;
+                else
+                    arr[(i-2*n-1)/2][2] = i; 
+
             }
 
-            cout<<st<<'\n';
-       }
-       
+            for(int i = 0; i < n; i++)
+            {
+                if(arr[i][1] != 0)
+                    cout<<arr[i][1]<<' ';
+                if(arr[i][0] != 0)
+                    cout<<arr[i][0]<<' ';
+                if(arr[i][2] != 0)
+                    cout<<arr[i][2]<<' ';
+                if(arr[i][3] != 0)
+                    cout<<arr[i][3]<<' ';
+            }
+
+        }
 
           
 

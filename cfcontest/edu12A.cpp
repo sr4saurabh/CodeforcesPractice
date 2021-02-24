@@ -79,37 +79,16 @@ int main() {
        freopen ("OUTPUT.txt", "w" , stdout);
     #endif
 
-    //Never let somebody tell you - you are weak! You are as strong as anyone be,
+	//Never let somebody tell you - you are weak! You are as strong as anyone be,
        // u just need consistency and will power to change!
+
 
        int t = 1;
        cin>>t;
        while(t--)
        {
-            string st;
-            cin>>st;
-
-            for(int i = 0; i < st.size(); i++)
-            {
-                if(i&1)
-                {
-                    if(st[i] == 'z')
-                        st[i] = 'y';
-                    else
-                        st[i] = 'z';
-                }
-                else
-                {
-                    if(st[i] == 'a')
-                        st[i] = 'b';
-                    else
-                        st[i] = 'a';
-                }
-            }
-
-            cout<<st<<'\n';
+            
        }
-       
 
           
 

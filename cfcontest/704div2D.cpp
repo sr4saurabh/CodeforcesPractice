@@ -79,36 +79,58 @@ int main() {
        freopen ("OUTPUT.txt", "w" , stdout);
     #endif
 
-    //Never let somebody tell you - you are weak! You are as strong as anyone be,
+	//Never let somebody tell you - you are weak! You are as strong as anyone be,
        // u just need consistency and will power to change!
 
-       int t = 1;
-       cin>>t;
-       while(t--)
-       {
-            string st;
-            cin>>st;
+       //cout<<__gcd(0,0)<<'\n';
+        int t = 1;
+        //cin >> t;
+        while(t--)
+        {
+            int n;
+            cin>>n;
 
-            for(int i = 0; i < st.size(); i++)
+            ll x[n],y[n];
+            for(int i = 0; i < n; i++)
+                cin>>x[i]>>y[i];
+
+            map< pair<ll,pll>, ll> slope;
+            ll ans = 0;
+            for(int i = 0; i < n ;i++)
             {
-                if(i&1)
+                for(int j = i+1; j < n; j++)
                 {
-                    if(st[i] == 'z')
-                        st[i] = 'y';
-                    else
-                        st[i] = 'z';
-                }
-                else
-                {
-                    if(st[i] == 'a')
-                        st[i] = 'b';
-                    else
-                        st[i] = 'a';
+                    
+                    ll delx = x[j] - x[i];
+                    ll dely = y[j] - y[i];
+                    ll dist = delx * delx + dely * dely;
+                   // if(delx == 0 && dely == 0)
+                     //   continue;
+                    ll gc = __gcd(abs(delx),abs(dely));
+                    if(gc > 0){
+                    delx /= gc;
+                    dely /= gc;
+                    }
+                    if(delx < 0)
+                    {
+                        delx  = -delx;
+                        dely =  -dely;
+                    }
+                    if(delx == 0 && dely < 0)
+                        dely = -dely;
+
+                    pll ps= {delx,dely};
+                    pair<ll,pll> pd = make_pair(dist,ps);
+                    if(slope.count(pd) )
+                        ans += slope[pd];
+
+                    slope[pd]++;
+
                 }
             }
 
-            cout<<st<<'\n';
-       }
+            cout<<ans/2;
+        }
        
 
           

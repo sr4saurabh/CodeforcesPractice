@@ -82,33 +82,30 @@ int main() {
     //Never let somebody tell you - you are weak! You are as strong as anyone be,
        // u just need consistency and will power to change!
 
-       int t = 1;
-       cin>>t;
-       while(t--)
+
+       string st;
+       cin>>st;
+
+       int n = st.size();
+       bool b = true;
+       for(int i = 0 ;i < n; i++)
        {
-            string st;
-            cin>>st;
-
-            for(int i = 0; i < st.size(); i++)
+            if(i&1)
             {
-                if(i&1)
-                {
-                    if(st[i] == 'z')
-                        st[i] = 'y';
-                    else
-                        st[i] = 'z';
-                }
-                else
-                {
-                    if(st[i] == 'a')
-                        st[i] = 'b';
-                    else
-                        st[i] = 'a';
-                }
+                if(st[i] >= 97)
+                    b = false;
             }
-
-            cout<<st<<'\n';
+            else
+            {
+                if(st[i] < 97)
+                    b = false;
+            }
        }
+
+       if(b)
+        cout<<"YES";
+    else
+        cout<<"NO";
        
 
           

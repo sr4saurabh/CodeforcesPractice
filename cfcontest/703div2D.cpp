@@ -64,7 +64,26 @@ const ll N=10000000+6;
 
 
 //--------------------------------------------
+ll retbase(ll num,ll base)
+{
+    vll v;
+    while(num > 0)
+    {
+        int r = num % 10;
+        v.pb(r);
+        num /= 10;
+    }
 
+    ll ans = 0;
+    ll b = 1;
+    for(ll p = 0 , p < v.size(); p++)
+    {
+        ans = ans + b * v[i];
+        b = b * base;
+    }
+
+    return ans;
+}
 
 
 
@@ -82,35 +101,15 @@ int main() {
     //Never let somebody tell you - you are weak! You are as strong as anyone be,
        // u just need consistency and will power to change!
 
-       int t = 1;
-       cin>>t;
-       while(t--)
+       string x;
+       ll m;
+       cin>>x>>m;
+       ll cp = x;
+       ll d = 0;
+       while(cp > 0)
        {
-            string st;
-            cin>>st;
 
-            for(int i = 0; i < st.size(); i++)
-            {
-                if(i&1)
-                {
-                    if(st[i] == 'z')
-                        st[i] = 'y';
-                    else
-                        st[i] = 'z';
-                }
-                else
-                {
-                    if(st[i] == 'a')
-                        st[i] = 'b';
-                    else
-                        st[i] = 'a';
-                }
-            }
-
-            cout<<st<<'\n';
        }
-       
-
           
 
 

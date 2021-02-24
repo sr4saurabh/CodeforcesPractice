@@ -79,36 +79,42 @@ int main() {
        freopen ("OUTPUT.txt", "w" , stdout);
     #endif
 
-    //Never let somebody tell you - you are weak! You are as strong as anyone be,
+	//Never let somebody tell you - you are weak! You are as strong as anyone be,
        // u just need consistency and will power to change!
 
-       int t = 1;
-       cin>>t;
-       while(t--)
+       int n,m,k;
+       cin>>n>>m>>k;
+
+
+       int ind[k+1];
+       int arr[k];
+       for(int i = 0; i < k ; i++){
+        cin>>arr[i];
+        ind[arr[i]] = i + 1;}
+
+
+      
+       ll ans = 0;
+       for(int i = 0; i < n; i++)
        {
-            string st;
-            cin>>st;
-
-            for(int i = 0; i < st.size(); i++)
-            {
-                if(i&1)
+                for(int j = 0; j < m; j++)
                 {
-                    if(st[i] == 'z')
-                        st[i] = 'y';
-                    else
-                        st[i] = 'z';
-                }
-                else
-                {
-                    if(st[i] == 'a')
-                        st[i] = 'b';
-                    else
-                        st[i] = 'a';
-                }
-            }
+                    int v;
+                    cin>>v;
+                    ans = ans + ind[v];
+                    int temp = ind[v];
+                    
+                    for(int l = 1; l <= k; l++)
+                    {
+                        if(ind[l] < temp)
+                            ind[l]++;
+                    }
+                    ind[v] = 1;
 
-            cout<<st<<'\n';
+                }
        }
+
+       cout<<ans;
        
 
           

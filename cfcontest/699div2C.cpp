@@ -79,95 +79,35 @@ int main() {
        freopen ("OUTPUT.txt", "w" , stdout);
     #endif
 
-	//Never let somebody tell you - you are weak! You are as strong as anyone be,
+    //Never let somebody tell you - you are weak! You are as strong as anyone be,
        // u just need consistency and will power to change!
 
+       int n;
+       cin>>n;
+       int arr[n];
+       for(int i = 0; i < n; i++)
+        cin>>arr[i];
 
-       int t = 1;
-       cin>>t;
-
-       while(t--)
-       {
-            int n,m;
-            cin>>n>>m;
-
-            int old[n+1], curr[n+1];
-            map<int,vii> tobe;
-            map<int,vii> done;
-            for(int i = 1; i <= n; i++)
-                cin>>old[i];
-            for(int i = 1; i <= n; i++)
-                cin>>curr[i];
-
-            
-            
-            for(int i = 1; i <= n; i++)
+        vii v1;
+        vii v2;
+        v1.pb(-1);
+        v2.pb(-1);
+        for(int i = 0; i < n; i++)
+        {
+            if(v1.back() == arr[i])
             {
-                int v = curr[i];
-                if(curr[i] != old[i])
-                tobe[v].pb(i);
+                if(v2.back() == arr[i])
+                    continue;
                 else
-                done[v].pb(i);
-            } 
-
-                
-
-            //------------------------------
-            int sigma = 0;
-            vii ans(m+1,0);
-            int last = 0;
-            vii in;
-            vii val;
-            for(int i = 1; i <= m ; i++)
-            {
-                int col; cin>>col;
-                if(tobe.count(col) > 0 && tobe[col].size() > 0)
-                {
-                    ans[i] = tobe[col].back();
-                    tobe[col].pop_back();
-                    done[col].push_back(ans[i]);
-                    if(sigma){
-                        sigma--;
-                        val.pb(ans[i]);
-                    }
-
-                    
-                }
-                else
-                if(done.count(col) > 0 && done[col].size() > 0)
-                {
-                    ans[i] = done[col].back();
-                    if(sigma)
-                    {
-                        sigma--;
-                        val.pb(ans[i]);
-                    }
-                    
-                    
-                }
-                else
-                {
-                     sigma++;
-                     in.pb(i);
-
-                }
-               
+                    v2.push_back(arr[i]);
             }
-
-            if(sigma > 0)
-                cout<<"NO\n";
             else
             {
-                cout<<"YES\n";
-                int j = 0;
-                for(int i = 1; i <= m; i++)
-                    if(ans[i] == 0)
-                        cout<<val[j++]<<' ';
-                    else
-                        cout<<ans[i]<<' ';
-                cout<<'\n';
+                v1.push_back(arr[i]);
             }
-       }
+        }
+       
+       cout<<v1.size() + v2.size() - 2;
 
           
 
